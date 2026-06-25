@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alice &amp; Pietro — 25 Giugno 2027</title>
+  <title>Alice & Pietro — 25 Giugno 2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
@@ -36,6 +36,39 @@
       min-height: 100vh;
     }
 
+    /* ── language switcher ── */
+    .lang-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.75rem 1.5rem 0;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .lang-toggle {
+      display: flex;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 5px 14px;
+      font-size: 13px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.5px;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: #fff;
+    }
+    .lang-btn:not(.active):hover { background: var(--amber-bg); color: var(--amber); }
+
     /* ── decorative top bar ── */
     .top-bar {
       height: 4px;
@@ -45,7 +78,7 @@
     /* ── hero ── */
     .hero {
       text-align: center;
-      padding: 3.5rem 1.5rem 2rem;
+      padding: 2.5rem 1.5rem 2rem;
       max-width: 680px;
       margin: 0 auto;
     }
@@ -104,9 +137,9 @@
       font-size: 22px;
       flex-shrink: 0;
     }
-    .ic-rose   { background: var(--rose-bg);  color: var(--rose);  }
-    .ic-sage   { background: var(--sage-bg);  color: var(--sage);  }
-    .ic-amber  { background: var(--amber-bg); color: var(--amber); }
+    .ic-rose  { background: var(--rose-bg);  color: var(--rose);  }
+    .ic-sage  { background: var(--sage-bg);  color: var(--sage);  }
+    .ic-amber { background: var(--amber-bg); color: var(--amber); }
 
     .card-header-text h2 {
       font-family: 'Playfair Display', serif;
@@ -120,11 +153,7 @@
       line-height: 1.5;
     }
 
-    .divider {
-      height: 0.5px;
-      background: var(--border);
-      margin: 1.25rem 0;
-    }
+    .divider { height: 0.5px; background: var(--border); margin: 1.25rem 0; }
 
     /* ── info rows ── */
     .info-row {
@@ -183,12 +212,7 @@
       display: block;
       margin-top: 4px;
     }
-    .countdown-note {
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 0.5rem;
-    }
+    .countdown-note { font-size: 13px; color: var(--muted); text-align: center; margin-top: 0.5rem; }
 
     /* ── form button ── */
     .form-btn {
@@ -217,12 +241,7 @@
       cursor: default;
     }
     .form-btn.disabled:hover { background: #f0ece7; }
-    .form-note {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 10px;
-    }
+    .form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 10px; }
 
     /* ── iban ── */
     .iban-box {
@@ -253,12 +272,7 @@
       white-space: nowrap;
     }
     .copy-btn:hover { background: #f5f0ea; }
-    .causale {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 10px;
-    }
+    .causale { font-size: 12px; color: var(--muted); text-align: center; margin-top: 10px; }
 
     /* ── footer ── */
     footer {
@@ -276,7 +290,6 @@
       .count-num { font-size: 24px; }
       .iban-code { font-size: 13px; }
     }
-
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; animation: none !important; }
     }
@@ -286,175 +299,222 @@
 
 <div class="top-bar" aria-hidden="true"></div>
 
+<div class="lang-bar">
+  <div class="lang-toggle" role="group" aria-label="Seleziona lingua / Select language">
+    <button class="lang-btn active" id="btn-it" onclick="setLang('it')" aria-pressed="true">IT</button>
+    <button class="lang-btn"        id="btn-en" onclick="setLang('en')" aria-pressed="false">EN</button>
+  </div>
+</div>
+
 <header class="hero">
   <p class="floral" aria-hidden="true">✿ ✾ ✿</p>
   <h1>Alice &amp; Pietro</h1>
-  <p class="subtitle">si sposano</p>
-  <span class="pill">Venerdì 25 giugno 2027</span>
+  <p class="subtitle" data-it="si sposano" data-en="are getting married">si sposano</p>
+  <span class="pill" id="hero-date">Venerdì 25 giugno 2027</span>
   <p class="floral" aria-hidden="true" style="margin-top:1rem;">✿ ✾ ✿</p>
 </header>
 
 <main>
 
   <!-- DOVE E QUANDO -->
-  <section class="card" aria-label="Data e luogo del matrimonio">
+  <section class="card" id="card-when">
     <div class="info-row">
       <div class="icon-circle ic-rose"><i class="ti ti-calendar-heart" aria-hidden="true"></i></div>
       <div>
-        <p class="info-label">Data</p>
-        <p class="info-value">Venerdì <strong>25 giugno 2027</strong></p>
+        <p class="info-label" data-it="Data" data-en="Date">Data</p>
+        <p class="info-value" data-it="Venerdì <strong>25 giugno 2027</strong>" data-en="Friday, <strong>June 25, 2027</strong>">Venerdì <strong>25 giugno 2027</strong></p>
       </div>
     </div>
     <div class="info-row">
       <div class="icon-circle ic-sage"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
       <div>
-        <p class="info-label">Dove</p>
+        <p class="info-label" data-it="Dove" data-en="Venue">Dove</p>
         <p class="info-value"><strong>Villa Caiselli – Casa</strong></p>
         <p class="info-sub">Via della Ferrovia 8, 33050 Cortello UD</p>
         <a class="map-link" href="https://maps.google.com/?q=Villa+Caiselli+Via+della+Ferrovia+8+33050+Cortello+UD" target="_blank" rel="noopener">
-          <i class="ti ti-map-2" aria-hidden="true"></i> Apri su Google Maps
+          <i class="ti ti-map-2" aria-hidden="true"></i>
+          <span data-it="Apri su Google Maps" data-en="Open in Google Maps">Apri su Google Maps</span>
         </a>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <p class="countdown-note">Mancano ancora…</p>
-    <div class="countdown-grid" role="timer" aria-label="Conto alla rovescia al matrimonio">
-      <div class="count-cell"><span class="count-num" id="cd-d">—</span><span class="count-lbl">giorni</span></div>
-      <div class="count-cell"><span class="count-num" id="cd-h">—</span><span class="count-lbl">ore</span></div>
-      <div class="count-cell"><span class="count-num" id="cd-m">—</span><span class="count-lbl">minuti</span></div>
-      <div class="count-cell"><span class="count-num" id="cd-s">—</span><span class="count-lbl">secondi</span></div>
+    <p class="countdown-note" data-it="Mancano ancora…" data-en="Counting down…">Mancano ancora…</p>
+    <div class="countdown-grid" role="timer">
+      <div class="count-cell"><span class="count-num" id="cd-d">—</span><span class="count-lbl" data-it="giorni"    data-en="days">giorni</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-h">—</span><span class="count-lbl" data-it="ore"       data-en="hours">ore</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-m">—</span><span class="count-lbl" data-it="minuti"    data-en="minutes">minuti</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-s">—</span><span class="count-lbl" data-it="secondi"   data-en="seconds">secondi</span></div>
     </div>
   </section>
 
   <!-- CONFERMA PRESENZA -->
-  <section class="card" aria-label="Conferma presenza">
+  <section class="card">
     <div class="card-header">
       <div class="icon-circle ic-rose"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div>
       <div class="card-header-text">
-        <h2>Confermaci la tua presenza</h2>
-        <p>Compila il modulo entro il <strong>28 febbraio 2027</strong> — ci aiuta moltissimo nell'organizzazione!</p>
+        <h2 data-it="Confermaci la tua presenza" data-en="Let us know you're coming">Confermaci la tua presenza</h2>
+        <p data-it="Compila il modulo entro il <strong>28 febbraio 2027</strong> — ci aiuta moltissimo nell'organizzazione!"
+           data-en="Please fill in the form by <strong>February 28, 2027</strong> — it helps us enormously with planning!">
+          Compila il modulo entro il <strong>28 febbraio 2027</strong> — ci aiuta moltissimo nell'organizzazione!
+        </p>
       </div>
     </div>
     <div class="divider"></div>
-    <p style="font-size:14px; color:var(--muted); margin-bottom:1.1rem; line-height:1.6;">
+    <p style="font-size:14px; color:var(--muted); margin-bottom:1.1rem; line-height:1.6;"
+       data-it="Il modulo include: conferma presenza, eventuali allergie o intolleranze alimentari, e qualsiasi altra esigenza speciale."
+       data-en="The form covers: attendance confirmation, any food allergies or intolerances, and any other special requirements.">
       Il modulo include: conferma presenza, eventuali allergie o intolleranze alimentari, e qualsiasi altra esigenza speciale.
     </p>
 
     <!--
-      ISTRUZIONI: quando il Google Form è pronto, sostituisci il blocco qui sotto con:
+      ISTRUZIONI / INSTRUCTIONS:
+      Quando il Google Form è pronto, sostituisci il blocco <button> qui sotto con:
+      When the Google Form is ready, replace the <button> below with:
 
       <a class="form-btn" href="https://docs.google.com/forms/d/..." target="_blank" rel="noopener">
         <i class="ti ti-external-link" aria-hidden="true"></i>
-        Compila il modulo di conferma
+        <span data-it="Compila il modulo di conferma" data-en="Fill in the RSVP form">Compila il modulo di conferma</span>
       </a>
 
-      e rimuovi il paragrafo .form-note sotto.
+      e rimuovi il paragrafo .form-note / and remove the .form-note paragraph below.
     -->
     <button class="form-btn disabled" disabled aria-disabled="true">
       <i class="ti ti-clock" aria-hidden="true"></i>
-      Modulo in arrivo — torna presto!
+      <span data-it="Modulo in arrivo — torna presto!" data-en="Form coming soon — check back later!">Modulo in arrivo — torna presto!</span>
     </button>
-    <p class="form-note">Il link al Google Form verrà aggiunto qui non appena disponibile.</p>
+    <p class="form-note"
+       data-it="Il link al Google Form verrà aggiunto qui non appena disponibile."
+       data-en="The Google Form link will appear here as soon as it's ready.">
+      Il link al Google Form verrà aggiunto qui non appena disponibile.
+    </p>
   </section>
 
   <!-- REGALO / VIAGGIO DI NOZZE -->
-  <section class="card" aria-label="Regalo di nozze">
+  <section class="card">
     <div class="card-header">
       <div class="icon-circle ic-amber"><i class="ti ti-plane-departure" aria-hidden="true"></i></div>
       <div class="card-header-text">
-        <h2>Il nostro viaggio di nozze</h2>
-        <p>Il regalo più bello è aiutarci a realizzare il viaggio dei nostri sogni.</p>
+        <h2 data-it="Il nostro viaggio di nozze" data-en="Our honeymoon">Il nostro viaggio di nozze</h2>
+        <p data-it="Il regalo più bello è aiutarci a realizzare il viaggio dei nostri sogni."
+           data-en="The most beautiful gift you can give us is helping make our dream trip a reality.">
+          Il regalo più bello è aiutarci a realizzare il viaggio dei nostri sogni.
+        </p>
       </div>
     </div>
     <div class="divider"></div>
-    <p style="font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:0.6rem;">
+    <p style="font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:0.6rem;"
+       data-it="Stiamo scegliendo la meta — vi aggiorneremo presto! Nel frattempo, se volete contribuire, ogni euro andrà direttamente al fondo viaggio."
+       data-en="We're still choosing our destination — we'll keep you posted! In the meantime, any contribution goes directly to the honeymoon fund.">
       Stiamo scegliendo la meta — vi aggiorneremo presto! Nel frattempo, se volete contribuire, ogni euro andrà direttamente al fondo viaggio.
     </p>
-    <p style="font-size:13px; font-style:italic; color:var(--muted); margin-bottom:1.4rem; line-height:1.6;">
+    <p style="font-size:13px; font-style:italic; color:var(--muted); margin-bottom:1.4rem; line-height:1.6;"
+       data-it="Nessun pensiero obbligatorio — la vostra presenza è già un dono enorme per noi."
+       data-en="No gift is expected — having you with us is already the greatest gift of all.">
       Nessun pensiero obbligatorio — la vostra presenza è già un dono enorme per noi.
     </p>
 
-    <p class="info-label" style="margin-bottom:8px;">Bonifico bancario</p>
+    <p class="info-label" style="margin-bottom:8px;"
+       data-it="Bonifico bancario" data-en="Bank transfer">Bonifico bancario</p>
     <div class="iban-box">
       <div>
         <!--
           ISTRUZIONI: sostituisci i valori qui sotto con i dati reali.
-          Esempio intestatario: Alice Rossi / Pietro Bianchi
+          INSTRUCTIONS: replace the values below with the real data.
+          Esempio / Example: Alice Rossi / Pietro Bianchi
         -->
-        <p class="iban-meta">Intestato a <strong style="color:var(--text);">Alice [Cognome] / Pietro [Cognome]</strong></p>
+        <p class="iban-meta">
+          <span data-it="Intestato a" data-en="Account holder">Intestato a</span>
+          &nbsp;<strong style="color:var(--text);">Alice [Cognome] / Pietro [Cognome]</strong>
+        </p>
         <span class="iban-code" id="iban-text">IT00 A000 0000 0000 0000 0000 000</span>
       </div>
-      <button class="copy-btn" onclick="copyIban()" aria-label="Copia IBAN">
+      <button class="copy-btn" onclick="copyIban()" aria-label="Copia IBAN / Copy IBAN">
         <i class="ti ti-copy" aria-hidden="true"></i>
-        <span id="copy-label">Copia</span>
+        <span id="copy-label" data-it="Copia" data-en="Copy">Copia</span>
       </button>
     </div>
-    <p class="causale">Causale suggerita: <em>Regalo di nozze Alice e Pietro</em></p>
+    <p class="causale"
+       data-it="Causale suggerita: <em>Regalo di nozze Alice e Pietro</em>"
+       data-en="Payment reference: <em>Wedding gift Alice and Pietro</em>">
+      Causale suggerita: <em>Regalo di nozze Alice e Pietro</em>
+    </p>
   </section>
 
 </main>
 
 <footer>
   <span class="footer-floral" aria-hidden="true">✿ ✾ ✿</span>
-  Con tutto il nostro amore — Alice &amp; Pietro
+  <span data-it="Con tutto il nostro amore — Alice &amp; Pietro"
+        data-en="With all our love — Alice &amp; Pietro">Con tutto il nostro amore — Alice &amp; Pietro</span>
 </footer>
 
 <script>
-  // ── Countdown ──────────────────────────────────────────────────
-  // Modifica l'orario di inizio cerimonia se necessario (formato ISO)
+  // ── Language ────────────────────────────────────────────────
+  var currentLang = 'it';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-it').setAttribute('aria-pressed', lang === 'it');
+    document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+
+    document.querySelectorAll('[data-it][data-en]').forEach(function(el) {
+      el.innerHTML = el.getAttribute('data-' + lang);
+    });
+
+    // hero date pill (not an innerHTML swap — just text)
+    document.getElementById('hero-date').textContent =
+      lang === 'it' ? 'Venerdì 25 giugno 2027' : 'Friday, June 25, 2027';
+  }
+
+  // ── Countdown ───────────────────────────────────────────────
+  // Modifica l'orario di inizio cerimonia se necessario
   var weddingDate = new Date('2027-06-25T11:00:00');
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
   function updateCountdown() {
-    var now  = new Date();
-    var diff = weddingDate - now;
-
+    var diff = weddingDate - new Date();
     if (diff <= 0) {
       ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id) {
         document.getElementById(id).textContent = '0';
       });
       return;
     }
-
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000)  / 60000);
-    var s = Math.floor((diff % 60000)    / 1000);
-
-    document.getElementById('cd-d').textContent = d;
-    document.getElementById('cd-h').textContent = pad(h);
-    document.getElementById('cd-m').textContent = pad(m);
-    document.getElementById('cd-s').textContent = pad(s);
+    document.getElementById('cd-d').textContent = Math.floor(diff / 86400000);
+    document.getElementById('cd-h').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor((diff % 3600000)  / 60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor((diff % 60000)    / 1000));
   }
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ── Copia IBAN ─────────────────────────────────────────────────
+  // ── Copy IBAN ───────────────────────────────────────────────
   function copyIban() {
-    var raw  = document.getElementById('iban-text').textContent.replace(/\s/g, '');
-    var lbl  = document.getElementById('copy-label');
+    var raw = document.getElementById('iban-text').textContent.replace(/\s/g, '');
+    var lbl = document.getElementById('copy-label');
+
+    var success = function() {
+      lbl.textContent = currentLang === 'it' ? 'Copiato!' : 'Copied!';
+      setTimeout(function() {
+        lbl.textContent = currentLang === 'it' ? 'Copia' : 'Copy';
+      }, 2000);
+    };
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(raw).then(function() {
-        lbl.textContent = 'Copiato!';
-        setTimeout(function() { lbl.textContent = 'Copia'; }, 2000);
-      });
+      navigator.clipboard.writeText(raw).then(success);
     } else {
-      // fallback per browser più vecchi
       var el = document.createElement('textarea');
-      el.value = raw;
-      el.style.position = 'fixed';
-      el.style.opacity  = '0';
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      lbl.textContent = 'Copiato!';
-      setTimeout(function() { lbl.textContent = 'Copia'; }, 2000);
+      el.value = raw; el.style.position = 'fixed'; el.style.opacity = '0';
+      document.body.appendChild(el); el.select();
+      document.execCommand('copy'); document.body.removeChild(el);
+      success();
     }
   }
 </script>
