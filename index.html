@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alice &amp; Pietro — 25 Giugno 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:    #D4537E;
+      --rose-bg: #FBEAF0;
+      --sage:    #3B6D11;
+      --sage-bg: #EAF3DE;
+      --amber:   #854F0B;
+      --amber-bg:#FAEEDA;
+      --gold:    #c9a27a;
+      --gold-dk: #b8905f;
+      --bg:      #fdfaf7;
+      --surface: #ffffff;
+      --border:  rgba(0,0,0,0.08);
+      --text:    #2c2a27;
+      --muted:   #7a7672;
+      --radius:  14px;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── decorative top bar ── */
+    .top-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--rose-bg), var(--gold), var(--rose-bg));
+    }
+
+    /* ── hero ── */
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .floral { color: var(--gold); letter-spacing: 10px; font-size: 20px; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 8vw, 56px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 0.6rem 0 0.3rem;
+    }
+    .hero .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 0.8rem;
+    }
+    .pill {
+      display: inline-block;
+      background: var(--amber-bg);
+      color: var(--amber);
+      font-size: 13px;
+      padding: 5px 16px;
+      border-radius: 20px;
+    }
+
+    /* ── main layout ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 1.25rem;
+    }
+    .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .ic-rose   { background: var(--rose-bg);  color: var(--rose);  }
+    .ic-sage   { background: var(--sage-bg);  color: var(--sage);  }
+    .ic-amber  { background: var(--amber-bg); color: var(--amber); }
+
+    .card-header-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 3px;
+    }
+    .card-header-text p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      margin: 1.25rem 0;
+    }
+
+    /* ── info rows ── */
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 1.2rem;
+    }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+    .info-value { font-size: 16px; }
+    .info-sub   { font-size: 14px; color: var(--muted); margin-top: 2px; }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: var(--gold);
+      text-decoration: none;
+      margin-top: 6px;
+    }
+    .map-link:hover { color: var(--gold-dk); text-decoration: underline; }
+
+    /* ── countdown ── */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+    .count-cell {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px 6px;
+      text-align: center;
+    }
+    .count-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .count-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 4px;
+    }
+    .countdown-note {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── form button ── */
+    .form-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .form-btn:hover { background: var(--gold-dk); }
+    .form-btn.disabled {
+      background: #f0ece7;
+      color: var(--muted);
+      border: 0.5px dashed rgba(0,0,0,0.15);
+      cursor: default;
+    }
+    .form-btn.disabled:hover { background: #f0ece7; }
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* ── iban ── */
+    .iban-box {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .iban-meta { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .iban-code { font-family: monospace; font-size: 15px; letter-spacing: 1px; color: var(--text); }
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-family: 'Lato', sans-serif;
+      cursor: pointer;
+      color: var(--muted);
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: #f5f0ea; }
+    .causale {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* ── footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2.5rem;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer-floral { color: var(--gold); letter-spacing: 8px; display: block; margin-bottom: 6px; font-size: 16px; }
+
+    /* ── responsive ── */
+    @media (max-width: 480px) {
+      .card { padding: 1.25rem; }
+      .countdown-grid { gap: 6px; }
+      .count-num { font-size: 24px; }
+      .iban-code { font-size: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar" aria-hidden="true"></div>
+
+<header class="hero">
+  <p class="floral" aria-hidden="true">✿ ✾ ✿</p>
+  <h1>Alice &amp; Pietro</h1>
+  <p class="subtitle">si sposano</p>
+  <span class="pill">Venerdì 25 giugno 2027</span>
+  <p class="floral" aria-hidden="true" style="margin-top:1rem;">✿ ✾ ✿</p>
+</header>
+
+<main>
+
+  <!-- DOVE E QUANDO -->
+  <section class="card" aria-label="Data e luogo del matrimonio">
+    <div class="info-row">
+      <div class="icon-circle ic-rose"><i class="ti ti-calendar-heart" aria-hidden="true"></i></div>
+      <div>
+        <p class="info-label">Data</p>
+        <p class="info-value">Venerdì <strong>25 giugno 2027</strong></p>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="icon-circle ic-sage"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+      <div>
+        <p class="info-label">Dove</p>
+        <p class="info-value"><strong>Villa Caiselli – Casa</strong></p>
+        <p class="info-sub">Via della Ferrovia 8, 33050 Cortello UD</p>
+        <a class="map-link" href="https://maps.google.com/?q=Villa+Caiselli+Via+della+Ferrovia+8+33050+Cortello+UD" target="_blank" rel="noopener">
+          <i class="ti ti-map-2" aria-hidden="true"></i> Apri su Google Maps
+        </a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="countdown-note">Mancano ancora…</p>
+    <div class="countdown-grid" role="timer" aria-label="Conto alla rovescia al matrimonio">
+      <div class="count-cell"><span class="count-num" id="cd-d">—</span><span class="count-lbl">giorni</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-h">—</span><span class="count-lbl">ore</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-m">—</span><span class="count-lbl">minuti</span></div>
+      <div class="count-cell"><span class="count-num" id="cd-s">—</span><span class="count-lbl">secondi</span></div>
+    </div>
+  </section>
+
+  <!-- CONFERMA PRESENZA -->
+  <section class="card" aria-label="Conferma presenza">
+    <div class="card-header">
+      <div class="icon-circle ic-rose"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div>
+      <div class="card-header-text">
+        <h2>Confermaci la tua presenza</h2>
+        <p>Compila il modulo entro il <strong>28 febbraio 2027</strong> — ci aiuta moltissimo nell'organizzazione!</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <p style="font-size:14px; color:var(--muted); margin-bottom:1.1rem; line-height:1.6;">
+      Il modulo include: conferma presenza, eventuali allergie o intolleranze alimentari, e qualsiasi altra esigenza speciale.
+    </p>
+
+    <!--
+      ISTRUZIONI: quando il Google Form è pronto, sostituisci il blocco qui sotto con:
+
+      <a class="form-btn" href="https://docs.google.com/forms/d/..." target="_blank" rel="noopener">
+        <i class="ti ti-external-link" aria-hidden="true"></i>
+        Compila il modulo di conferma
+      </a>
+
+      e rimuovi il paragrafo .form-note sotto.
+    -->
+    <button class="form-btn disabled" disabled aria-disabled="true">
+      <i class="ti ti-clock" aria-hidden="true"></i>
+      Modulo in arrivo — torna presto!
+    </button>
+    <p class="form-note">Il link al Google Form verrà aggiunto qui non appena disponibile.</p>
+  </section>
+
+  <!-- REGALO / VIAGGIO DI NOZZE -->
+  <section class="card" aria-label="Regalo di nozze">
+    <div class="card-header">
+      <div class="icon-circle ic-amber"><i class="ti ti-plane-departure" aria-hidden="true"></i></div>
+      <div class="card-header-text">
+        <h2>Il nostro viaggio di nozze</h2>
+        <p>Il regalo più bello è aiutarci a realizzare il viaggio dei nostri sogni.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <p style="font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:0.6rem;">
+      Stiamo scegliendo la meta — vi aggiorneremo presto! Nel frattempo, se volete contribuire, ogni euro andrà direttamente al fondo viaggio.
+    </p>
+    <p style="font-size:13px; font-style:italic; color:var(--muted); margin-bottom:1.4rem; line-height:1.6;">
+      Nessun pensiero obbligatorio — la vostra presenza è già un dono enorme per noi.
+    </p>
+
+    <p class="info-label" style="margin-bottom:8px;">Bonifico bancario</p>
+    <div class="iban-box">
+      <div>
+        <!--
+          ISTRUZIONI: sostituisci i valori qui sotto con i dati reali.
+          Esempio intestatario: Alice Rossi / Pietro Bianchi
+        -->
+        <p class="iban-meta">Intestato a <strong style="color:var(--text);">Alice [Cognome] / Pietro [Cognome]</strong></p>
+        <span class="iban-code" id="iban-text">IT00 A000 0000 0000 0000 0000 000</span>
+      </div>
+      <button class="copy-btn" onclick="copyIban()" aria-label="Copia IBAN">
+        <i class="ti ti-copy" aria-hidden="true"></i>
+        <span id="copy-label">Copia</span>
+      </button>
+    </div>
+    <p class="causale">Causale suggerita: <em>Regalo di nozze Alice e Pietro</em></p>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-floral" aria-hidden="true">✿ ✾ ✿</span>
+  Con tutto il nostro amore — Alice &amp; Pietro
+</footer>
+
+<script>
+  // ── Countdown ──────────────────────────────────────────────────
+  // Modifica l'orario di inizio cerimonia se necessario (formato ISO)
+  var weddingDate = new Date('2027-06-25T11:00:00');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateCountdown() {
+    var now  = new Date();
+    var diff = weddingDate - now;
+
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id) {
+        document.getElementById(id).textContent = '0';
+      });
+      return;
+    }
+
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000)  / 60000);
+    var s = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = pad(h);
+    document.getElementById('cd-m').textContent = pad(m);
+    document.getElementById('cd-s').textContent = pad(s);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Copia IBAN ─────────────────────────────────────────────────
+  function copyIban() {
+    var raw  = document.getElementById('iban-text').textContent.replace(/\s/g, '');
+    var lbl  = document.getElementById('copy-label');
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(raw).then(function() {
+        lbl.textContent = 'Copiato!';
+        setTimeout(function() { lbl.textContent = 'Copia'; }, 2000);
+      });
+    } else {
+      // fallback per browser più vecchi
+      var el = document.createElement('textarea');
+      el.value = raw;
+      el.style.position = 'fixed';
+      el.style.opacity  = '0';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      lbl.textContent = 'Copiato!';
+      setTimeout(function() { lbl.textContent = 'Copia'; }, 2000);
+    }
+  }
+</script>
+
+</body>
+</html>
