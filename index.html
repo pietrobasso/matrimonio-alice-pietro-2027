@@ -61,6 +61,7 @@
       line-height: 1.6;
       background: var(--bg);
       color: var(--ink);
+      font-variant-numeric: lining-nums;
     }
 
     :focus-visible { outline: 3px solid var(--gold-dk); outline-offset: 3px; border-radius: 6px; }
@@ -169,7 +170,9 @@
     .btn-outline { background: transparent; color: #7E2A25; border-color: var(--rose); }
     .btn-outline:hover { background: var(--rose-bg); }
     .btn-block { display: flex; width: 100%; }
-    .btn-disabled { background: #F3EEE7; color: var(--ink); border: 2px dashed var(--gold-dk); cursor: default; }
+    .btn-disabled { background: #EEE4F5; color: #5E3484; border: 2px dashed #5E3484; cursor: default; }
+    .btn-violet { background: #5E3484; color: #fff; }
+    .btn-violet:hover { background: #4A2768; }
     .map-btn { margin-top: 1rem; }
     .form-note { font-size: 1rem; color: var(--muted); text-align: center; margin-top: 0.75rem; }
 
@@ -186,6 +189,16 @@
     .parking li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
     .parking li::marker { color: var(--rose); font-weight: 700; }
     .parking-help { margin-top: 1rem; background: var(--sage-bg); border-radius: 10px; padding: 0.9rem 1.1rem; color: var(--ink); }
+
+    /* ── orario e programma ── */
+    .time-big { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(2rem, 8vw, 2.75rem); line-height: 1.15; color: var(--ink); margin-bottom: 0; position: relative; top: -0.06em; }
+    .card-header.center { align-items: center; }
+    .schedule { list-style: none; }
+    .schedule li { display: grid; grid-template-columns: 2.25rem 6.5rem 1fr; gap: 0.5rem; align-items: center; padding: 0.85rem 0; border-top: 1.5px solid var(--border); }
+    .schedule li:first-child { border-top: 0; padding-top: 0; }
+    .sch-emoji { font-size: 1.6rem; line-height: 1; text-align: center; }
+    .sch-time { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 1.25rem; line-height: 1.3; color: #8A2F2A; }
+    .sch-text { font-size: 1.2rem; color: var(--ink); line-height: 1.4; }
 
     /* ── iban ── */
     .label { font-weight: 700; margin-bottom: 0.5rem; }
@@ -255,7 +268,7 @@
       <span data-it="Apri su Google Maps" data-en="Open in Google Maps">Apri su Google Maps</span>
     </a>
 
-    <button class="btn btn-outline expand-btn" id="parking-btn" onclick="toggleParking()" aria-expanded="false" aria-controls="parking-panel">
+    <button class="btn btn-outline expand-btn" id="parking-btn" onclick="toggleExpand(this)" aria-expanded="false" aria-controls="parking-panel">
       <span data-it="Dove parcheggiare" data-en="Where to park">Dove parcheggiare</span>
       <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
@@ -278,6 +291,63 @@
     </div>
   </section>
 
+  <!-- ORARIO -->
+  <section class="card" aria-labelledby="h-time">
+    <div class="card-header center">
+      <div class="icon-circle ic-sage" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </div>
+      <div>
+        <h2 id="h-time" class="time-big" data-it="Ore 15:30" data-en="3:30 PM">Ore 15:30</h2>
+      </div>
+    </div>
+
+    <button class="btn btn-outline expand-btn" id="schedule-btn" onclick="toggleExpand(this)" aria-expanded="false" aria-controls="schedule-panel">
+      <span data-it="Programma della giornata" data-en="Schedule of the day">Programma della giornata</span>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="parking" id="schedule-panel" hidden>
+      <ul class="schedule">
+        <li>
+          <span class="sch-emoji" aria-hidden="true">💐</span>
+          <span class="sch-time" data-it="15:30" data-en="3:30 PM">15:30</span>
+          <span class="sch-text" data-it="Ingresso invitati" data-en="Guest arrival">Ingresso invitati</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">💍</span>
+          <span class="sch-time" data-it="16:00" data-en="4:00 PM">16:00</span>
+          <span class="sch-text" data-it="Cerimonia simbolica" data-en="Symbolic ceremony">Cerimonia simbolica</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">🥂</span>
+          <span class="sch-time" data-it="16:30" data-en="4:30 PM">16:30</span>
+          <span class="sch-text" data-it="Aperitivo" data-en="Aperitivo">Aperitivo</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">🍽️</span>
+          <span class="sch-time" data-it="19:00" data-en="7:00 PM">19:00</span>
+          <span class="sch-text" data-it="Cena" data-en="Dinner">Cena</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">🎂</span>
+          <span class="sch-time" data-it="21:30" data-en="9:30 PM">21:30</span>
+          <span class="sch-text" data-it="Taglio torta" data-en="Cake cutting">Taglio torta</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">🍹</span>
+          <span class="sch-time" data-it="22:30" data-en="10:30 PM">22:30</span>
+          <span class="sch-text" data-it="Open bar" data-en="Open bar">Open bar</span>
+        </li>
+        <li>
+          <span class="sch-emoji" aria-hidden="true">🌙</span>
+          <span class="sch-time" data-it="01:30" data-en="1:30 AM">01:30</span>
+          <span class="sch-text" data-it="Fine della serata" data-en="End of the evening">Fine della serata</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- 5 FORM PREFERENZE -->
   <section class="card" aria-labelledby="h-rsvp">
     <div class="card-header">
@@ -286,8 +356,8 @@
       </div>
       <div>
         <h2 id="h-rsvp" data-it="Confermaci la tua presenza" data-en="Let us know you’re coming">Confermaci la tua presenza</h2>
-        <p class="lead" data-it="Compila il modulo entro il <strong>28 febbraio 2027</strong>: ci aiuta moltissimo nell’organizzazione!"
-           data-en="Please fill in the form by <strong>February 28, 2027</strong>: it helps us enormously with planning!">Compila il modulo entro il <strong>28 febbraio 2027</strong>: ci aiuta moltissimo nell’organizzazione!</p>
+        <p class="lead" data-it="Compila il modulo entro il <strong>30 aprile 2027</strong>: ci aiuta moltissimo nell’organizzazione!"
+           data-en="Please fill in the form by <strong>April 30, 2027</strong>: it helps us enormously with planning!">Compila il modulo entro il <strong>30 aprile 2027</strong>: ci aiuta moltissimo nell’organizzazione!</p>
       </div>
     </div>
     <hr class="divider" />
@@ -300,7 +370,7 @@
       Quando il Google Form è pronto, sostituisci il blocco <button> qui sotto con:
       When the Google Form is ready, replace the <button> below with:
 
-      <a class="btn btn-primary btn-block" href="https://docs.google.com/forms/d/..." target="_blank" rel="noopener">
+      <a class="btn btn-violet btn-block" href="https://docs.google.com/forms/d/..." target="_blank" rel="noopener">
         <span data-it="Compila il modulo di conferma" data-en="Fill in the RSVP form">Compila il modulo di conferma</span>
       </a>
 
@@ -380,10 +450,9 @@
     document.querySelectorAll('[data-alt-it]').forEach(function (el) { el.alt = el.getAttribute('data-alt-' + lang); });
   }
 
-  // ── Parcheggio espandibile ──────────────────────────────────
-  function toggleParking() {
-    var btn = document.getElementById('parking-btn');
-    var panel = document.getElementById('parking-panel');
+  // ── Sezioni espandibili (parcheggio, programma) ─────────────
+  function toggleExpand(btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
     var open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', open ? 'false' : 'true');
     panel.hidden = open;
