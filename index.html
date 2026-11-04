@@ -365,24 +365,14 @@
        data-it="Il modulo include: conferma presenza, eventuali allergie o intolleranze alimentari, e qualsiasi altra esigenza speciale."
        data-en="The form covers: attendance confirmation, any food allergies or intolerances, and any other special requirements.">Il modulo include: conferma presenza, eventuali allergie o intolleranze alimentari, e qualsiasi altra esigenza speciale.</p>
 
-    <!--
-      ISTRUZIONI / INSTRUCTIONS:
-      Quando il Google Form è pronto, sostituisci il blocco <button> qui sotto con:
-      When the Google Form is ready, replace the <button> below with:
-
-      <a class="btn btn-violet btn-block" href="https://docs.google.com/forms/d/..." target="_blank" rel="noopener">
-        <span data-it="Compila il modulo di conferma" data-en="Fill in the RSVP form">Compila il modulo di conferma</span>
-      </a>
-
-      e rimuovi il paragrafo .form-note / and remove the .form-note paragraph below.
-    -->
-    <button class="btn btn-disabled btn-block" disabled aria-disabled="true">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      <span data-it="Modulo in arrivo, torna presto!" data-en="Form coming soon, check back later!">Modulo in arrivo, torna presto!</span>
-    </button>
-    <p class="form-note"
-       data-it="Il link al Google Form verrà aggiunto qui non appena disponibile."
-       data-en="The Google Form link will appear here as soon as it’s ready.">Il link al Google Form verrà aggiunto qui non appena disponibile.</p>
+    <a class="btn btn-violet btn-block" id="rsvp-link"
+       href="https://forms.gle/28hMimhaqQkXvniq6"
+       data-href-it="https://forms.gle/28hMimhaqQkXvniq6"
+       data-href-en="https://forms.gle/Nq8m8V9TKnyNnGf99"
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M10 14L21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+      <span data-it="Compila il modulo di conferma" data-en="Fill in the RSVP form">Compila il modulo di conferma</span>
+    </a>
   </section>
 
   <!-- 6 REGALO -->
@@ -446,6 +436,8 @@
     document.querySelectorAll('[data-it][data-en]').forEach(function (el) {
       el.innerHTML = el.getAttribute('data-' + lang);
     });
+    var rsvpLink = document.getElementById('rsvp-link');
+    rsvpLink.href = rsvpLink.getAttribute('data-href-' + lang);
     document.getElementById('copy-btn').setAttribute('aria-label', lang === 'it' ? 'Copia IBAN' : 'Copy IBAN');
     document.querySelectorAll('[data-alt-it]').forEach(function (el) { el.alt = el.getAttribute('data-alt-' + lang); });
   }
