@@ -139,18 +139,10 @@
     }
     .hero .floral.bottom { display: block; margin-top: 1.25rem; }
 
-    /* ── CTA in cima, badge, link calendario ── */
+    /* ── CTA in cima e badge ── */
     .hero-cta { max-width: 460px; margin: 1.75rem auto 0; }
     .hero-cta .btn { width: 100%; }
     .cta-note { font-style: italic; font-size: 1.0625rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
-    .link-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      min-height: 44px; margin-top: 0.5rem; padding: 0.4rem 0.75rem;
-      background: none; border: none; color: var(--sage);
-      font: 700 1.0625rem 'Lato', sans-serif;
-      text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
-    }
-    .link-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .btn-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 0.6rem; text-align: left; }
     .badge {
       display: inline-block; font-size: 0.875rem; font-weight: 700; line-height: 1.4;
@@ -288,10 +280,6 @@
     <p class="cta-note"
        data-it="Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span>"
        data-en="Let us know if you’ll be there by <strong>April 30, 2027</strong> at the latest <span style='font-style:normal'>🤗</span>">Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span></p>
-    <button class="link-btn" type="button" onclick="addToCalendar()">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16"/></svg>
-      <span data-it="Aggiungi al calendario" data-en="Add to calendar">Aggiungi al calendario</span>
-    </button>
   </div>
 
   <p class="floral bottom" aria-hidden="true"><span class="f-coral">✿</span><span class="f-wheat">❀</span><span class="f-euc">❁</span></p>
@@ -502,41 +490,6 @@
       try { document.execCommand('copy'); done(); } catch (e) {}
       document.body.removeChild(el);
     }
-  }
-
-  // ── Aggiungi al calendario (file .ics) ─────────────────────
-  function addToCalendar() {
-    var it = currentLang === 'it';
-    var lines = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Alice e Pietro//Matrimonio//IT',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      'UID:matrimonio-alice-pietro-20270625@pietrobasso.github.io',
-      'DTSTAMP:20261124T000000Z',
-      'DTSTART:20270625T133000Z',  // 15:30 ora italiana
-      'DTEND:20270625T233000Z',    // 01:30 del 26 giugno
-      'SUMMARY:' + (it ? 'Matrimonio di Alice e Pietro' : 'Alice & Pietro’s wedding'),
-      'LOCATION:Villa Caiselli – Casa\\, Via della Ferrovia 8\\, 33050 Cortello (UD)',
-      'GEO:45.991130;13.261925',
-      'DESCRIPTION:' + (it
-        ? 'Ingresso invitati alle 15:30\\, cerimonia simbolica alle 16:00.'
-        : 'Guest arrival at 3:30 PM\\, symbolic ceremony at 4:00 PM.') +
-        '\\nhttps://pietrobasso.github.io/matrimonio-alice-pietro-2027/',
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ];
-    var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'matrimonio-alice-pietro.ics';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
   // ── Lingua automatica: inglese se il browser è in inglese ──
