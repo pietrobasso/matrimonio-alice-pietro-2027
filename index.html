@@ -116,6 +116,15 @@
       line-height: 1.2;
       color: var(--ink);
     }
+    .when-place {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+      line-height: 1.4;
+      margin-top: 0.6rem;
+      color: var(--ink);
+    }
+    .place-link { color: inherit; text-decoration: underline; text-decoration-color: var(--rose); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .place-link:hover { color: var(--rose); }
     .when-time {
       font-family: 'Playfair Display', serif;
       font-weight: 500;
@@ -129,6 +138,25 @@
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
     .hero .floral.bottom { display: block; margin-top: 1.25rem; }
+
+    /* ── CTA in cima, badge, link calendario ── */
+    .hero-cta { max-width: 460px; margin: 1.75rem auto 0; }
+    .hero-cta .btn { width: 100%; }
+    .cta-note { font-style: italic; font-size: 1.0625rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
+    .link-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 44px; margin-top: 0.5rem; padding: 0.4rem 0.75rem;
+      background: none; border: none; color: var(--sage);
+      font: 700 1.0625rem 'Lato', sans-serif;
+      text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+    }
+    .link-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 0.6rem; text-align: left; }
+    .badge {
+      display: inline-block; font-size: 0.875rem; font-weight: 700; line-height: 1.4;
+      padding: 1px 10px; border-radius: 999px;
+      background: var(--rose-bg); color: #7E2A25; border: 1.5px solid #D99A91;
+    }
 
     /* ── layout ── */
     main { max-width: 720px; margin: 0 auto; padding: 1rem 1.25rem 2rem; }
@@ -146,7 +174,7 @@
     .ic-rose  { background: var(--rose-bg);  color: var(--rose); }
     .ic-sage  { background: var(--sage-bg);  color: var(--sage); }
     .ic-amber { background: var(--amber-bg); color: var(--amber); }
-    .ic-violet { background: #EEE4F5; color: #5E3484; }
+    .ic-violet { background: #F9E4E0; color: #D06E60; }
 
     h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(1.6rem, 5vw, 2rem); line-height: 1.2; margin-bottom: 0.3rem; }
     .lead { color: var(--muted); }
@@ -171,8 +199,8 @@
     .btn-outline:hover { background: var(--rose-bg); }
     .btn-block { display: flex; width: 100%; }
     .btn-disabled { background: #EEE4F5; color: #5E3484; border: 2px dashed #5E3484; cursor: default; }
-    .btn-violet { background: #5E3484; color: #fff; }
-    .btn-violet:hover { background: #4A2768; }
+    .btn-violet { background: #D06E60; color: #fff; }
+    .btn-violet:hover { background: #BE5C4D; }
     .map-btn { margin-top: 1rem; }
     .form-note { font-size: 1rem; color: var(--muted); text-align: center; margin-top: 0.75rem; }
 
@@ -245,6 +273,25 @@
   <div class="when">
     <p class="when-date" data-it="Venerdì 25 giugno 2027" data-en="Friday, June 25, 2027">Venerdì 25 giugno 2027</p>
     <p class="when-time" data-it="ore 15:30" data-en="15:30">ore 15:30</p>
+    <p class="when-place" data-it="<a class='place-link' href='https://www.google.com/maps/search/?api=1&amp;query=45.991130,13.261925' target='_blank' rel='noopener'>Villa Caiselli – Casa<br>Cortello (UD)</a>" data-en="<a class='place-link' href='https://www.google.com/maps/search/?api=1&amp;query=45.991130,13.261925' target='_blank' rel='noopener'>Villa Caiselli – Casa<br>Cortello (UD), Italy</a>"><a class="place-link" href="https://www.google.com/maps/search/?api=1&query=45.991130,13.261925" target="_blank" rel="noopener">Villa Caiselli – Casa<br>Cortello (UD)</a></p>
+  </div>
+
+  <div class="hero-cta">
+    <a class="btn btn-violet rsvp-link"
+       href="https://forms.gle/28hMimhaqQkXvniq6"
+       data-href-it="https://forms.gle/28hMimhaqQkXvniq6"
+       data-href-en="https://forms.gle/Nq8m8V9TKnyNnGf99"
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+      <span data-it="Ci sarete?" data-en="Will you be there?">Ci sarete?</span>
+    </a>
+    <p class="cta-note"
+       data-it="Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span><br><strong>Da compilare una sola volta per il vostro gruppo!</strong>"
+       data-en="Let us know if you’ll be there by <strong>April 30, 2027</strong> at the latest <span style='font-style:normal'>🤗</span><br><strong>Please fill it in just once for your group!</strong>">Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span><br><strong>Da compilare una sola volta per il vostro gruppo!</strong></p>
+    <button class="link-btn" type="button" onclick="addToCalendar()">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16"/></svg>
+      <span data-it="Aggiungi al calendario" data-en="Add to calendar">Aggiungi al calendario</span>
+    </button>
   </div>
 
   <p class="floral bottom" aria-hidden="true"><span class="f-coral">✿</span><span class="f-wheat">❀</span><span class="f-euc">❁</span></p>
@@ -269,7 +316,7 @@
     </a>
 
     <button class="btn btn-outline expand-btn" id="parking-btn" onclick="toggleExpand(this)" aria-expanded="false" aria-controls="parking-panel">
-      <span data-it="Dove parcheggiare" data-en="Where to park">Dove parcheggiare</span>
+      <span class="btn-label"><span data-it="Dove parcheggiare" data-en="Where to park">Dove parcheggiare</span> <span class="badge" data-it="Importante" data-en="Important">Importante</span></span>
       <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
 
@@ -355,18 +402,19 @@
         <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
       </div>
       <div>
-        <h2 id="h-rsvp" data-it="Confermaci la tua presenza" data-en="Let us know you’re coming">Confermaci la tua presenza</h2>
-        <p class="lead" data-it="Compila il modulo entro il <strong>30 aprile 2027</strong>: ci aiuta moltissimo nell’organizzazione!"
-           data-en="Please fill in the form by <strong>April 30, 2027</strong>: it will help us a lot with planning!">Compila il modulo entro il <strong>30 aprile 2027</strong>: ci aiuta moltissimo nell’organizzazione!</p>
+        <h2 id="h-rsvp" data-it="Ci sarete?" data-en="Will you be there?">Ci sarete?</h2>
+        <p class="lead cta-note" style="margin-top:0; font-style:normal"
+           data-it="Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span><br><strong>Da compilare una sola volta per il vostro gruppo!</strong>"
+           data-en="Let us know if you’ll be there by <strong>April 30, 2027</strong> at the latest <span style='font-style:normal'>🤗</span><br><strong>Please fill it in just once for your group!</strong>">Fatecelo sapere entro e non oltre il <strong>30 aprile 2027</strong> <span style='font-style:normal'>🤗</span><br><strong>Da compilare una sola volta per il vostro gruppo!</strong></p>
       </div>
     </div>
-    <a class="btn btn-violet btn-block" id="rsvp-link"
+    <a class="btn btn-violet btn-block rsvp-link"
        href="https://forms.gle/28hMimhaqQkXvniq6"
        data-href-it="https://forms.gle/28hMimhaqQkXvniq6"
        data-href-en="https://forms.gle/Nq8m8V9TKnyNnGf99"
        target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M10 14L21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
-      <span data-it="Compila il modulo di conferma" data-en="Fill in the RSVP form">Compila il modulo di conferma</span>
+      <span data-it="Compila il modulo" data-en="Fill in the form">Compila il modulo</span>
     </a>
   </section>
 
@@ -386,9 +434,6 @@
     <p class="body-text"
        data-it="Stiamo ancora scegliendo la meta, vi aggiorneremo presto! Nel frattempo, se volete contribuire, ogni euro andrà direttamente al fondo viaggio."
        data-en="We’re still choosing our destination, we’ll keep you posted! In the meantime, any contribution goes directly to the honeymoon fund.">Stiamo ancora scegliendo la meta, vi aggiorneremo presto! Nel frattempo, se volete contribuire, ogni euro andrà direttamente al fondo viaggio.</p>
-    <p class="body-text" style="font-style:italic; margin-bottom:1.5rem;"
-       data-it="Nessun pensiero obbligatorio: la vostra presenza è già un dono enorme per noi."
-       data-en="No gift is expected, having you with us is already the greatest gift of all.">Nessun pensiero obbligatorio: la vostra presenza è già un dono enorme per noi.</p>
 
     <p class="label" data-it="Bonifico bancario" data-en="Bank transfer">Bonifico bancario</p>
     <div class="iban-box">
@@ -415,8 +460,8 @@
 
 <footer>
   <span class="footer-floral" aria-hidden="true"><span class="f-coral">✿</span><span class="f-wheat">❀</span><span class="f-euc">❁</span><span class="f-pink">❁</span><span class="f-coral">✿</span></span>
-  <em data-it="Con tutto il nostro affetto, Alice &amp; Pietro"
-      data-en="With all our love, Alice &amp; Pietro">Con tutto il nostro affetto, Alice &amp; Pietro</em>
+  <em data-it="Alice &amp; Pietro"
+      data-en="Alice &amp; Pietro">Alice &amp; Pietro</em>
 </footer>
 
 <script>
@@ -431,8 +476,7 @@
     document.querySelectorAll('[data-it][data-en]').forEach(function (el) {
       el.innerHTML = el.getAttribute('data-' + lang);
     });
-    var rsvpLink = document.getElementById('rsvp-link');
-    rsvpLink.href = rsvpLink.getAttribute('data-href-' + lang);
+    document.querySelectorAll('.rsvp-link').forEach(function (el) { el.href = el.getAttribute('data-href-' + lang); });
     document.getElementById('copy-btn').setAttribute('aria-label', lang === 'it' ? 'Copia IBAN' : 'Copy IBAN');
     document.querySelectorAll('[data-alt-it]').forEach(function (el) { el.alt = el.getAttribute('data-alt-' + lang); });
   }
@@ -469,6 +513,44 @@
       document.body.removeChild(el);
     }
   }
+
+  // ── Aggiungi al calendario (file .ics) ─────────────────────
+  function addToCalendar() {
+    var it = currentLang === 'it';
+    var lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Alice e Pietro//Matrimonio//IT',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:matrimonio-alice-pietro-20270625@pietrobasso.github.io',
+      'DTSTAMP:20261124T000000Z',
+      'DTSTART:20270625T133000Z',  // 15:30 ora italiana
+      'DTEND:20270625T233000Z',    // 01:30 del 26 giugno
+      'SUMMARY:' + (it ? 'Matrimonio di Alice e Pietro' : 'Alice & Pietro’s wedding'),
+      'LOCATION:Villa Caiselli – Casa\\, Via della Ferrovia 8\\, 33050 Cortello (UD)',
+      'GEO:45.991130;13.261925',
+      'DESCRIPTION:' + (it
+        ? 'Ingresso invitati alle 15:30\\, cerimonia simbolica alle 16:00.'
+        : 'Guest arrival at 3:30 PM\\, symbolic ceremony at 4:00 PM.') +
+        '\\nhttps://pietrobasso.github.io/matrimonio-alice-pietro-2027/',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ];
+    var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'matrimonio-alice-pietro.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  // ── Lingua automatica: inglese se il browser è in inglese ──
+  if (/^en/i.test(navigator.language || '')) { setLang('en'); }
 </script>
 
 </body>
