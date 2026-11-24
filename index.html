@@ -235,9 +235,6 @@
       padding: 1.1rem 1.25rem;
       display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     }
-    .iban-meta { color: var(--muted); margin-bottom: 0.3rem; }
-    .iban-meta strong { color: var(--ink); }
-    .iban-code { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; font-size: 1.125rem; letter-spacing: 1px; overflow-wrap: anywhere; }
     .causale { font-size: 1rem; color: var(--muted); text-align: center; margin-top: 0.85rem; }
 
     footer { text-align: center; padding: 1rem 1.25rem 2.5rem; color: var(--muted); }
@@ -437,19 +434,9 @@
 
     <p class="label" data-it="Bonifico bancario" data-en="Bank transfer">Bonifico bancario</p>
     <div class="iban-box">
-      <div>
-        <!--
-          ISTRUZIONI: sostituisci i valori qui sotto con i dati reali.
-          INSTRUCTIONS: replace the values below with the real data.
-        -->
-        <p class="iban-meta"><span data-it="Intestato a" data-en="Account holder">Intestato a</span>
-          <strong>Alice [Cognome] / Pietro [Cognome]</strong></p>
-        <span class="iban-code" id="iban-text">IT00 A000 0000 0000 0000 0000 000</span>
-      </div>
-      <button class="btn btn-outline" id="copy-btn" onclick="copyIban()" aria-label="Copia IBAN">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-        <span id="copy-label" data-it="Copia" data-en="Copy">Copia</span>
-      </button>
+      <p class="body-text" style="margin:0"
+         data-it="Se preferite farci un regalo tramite bonifico, scrivete a Pietro o Alice per ricevere le nostre coordinate bancarie 🤗"
+         data-en="If you’d prefer to give us a gift by bank transfer, message Pietro or Alice to receive our bank details 🤗">Se preferite farci un regalo tramite bonifico, scrivete a Pietro o Alice per ricevere le nostre coordinate bancarie 🤗</p>
     </div>
     <p class="causale"
        data-it="Causale suggerita: <em>Regalo di matrimonio Alice e Pietro</em>"
@@ -477,7 +464,6 @@
       el.innerHTML = el.getAttribute('data-' + lang);
     });
     document.querySelectorAll('.rsvp-link').forEach(function (el) { el.href = el.getAttribute('data-href-' + lang); });
-    document.getElementById('copy-btn').setAttribute('aria-label', lang === 'it' ? 'Copia IBAN' : 'Copy IBAN');
     document.querySelectorAll('[data-alt-it]').forEach(function (el) { el.alt = el.getAttribute('data-alt-' + lang); });
   }
 
@@ -487,31 +473,6 @@
     var open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', open ? 'false' : 'true');
     panel.hidden = open;
-  }
-
-  // ── Copia IBAN ──────────────────────────────────────────────
-  function copyIban() {
-    var raw = document.getElementById('iban-text').textContent.replace(/\s/g, '');
-    var lbl = document.getElementById('copy-label');
-
-    var done = function () {
-      lbl.textContent = currentLang === 'it' ? 'Copiato!' : 'Copied!';
-      setTimeout(function () { lbl.textContent = currentLang === 'it' ? 'Copia' : 'Copy'; }, 2000);
-    };
-
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(raw).then(done, fallback);
-      } else { fallback(); }
-    } catch (e) { fallback(); }
-
-    function fallback() {
-      var el = document.createElement('textarea');
-      el.value = raw; el.style.position = 'fixed'; el.style.opacity = '0';
-      document.body.appendChild(el); el.select();
-      try { document.execCommand('copy'); done(); } catch (e) {}
-      document.body.removeChild(el);
-    }
   }
 
   // ── Aggiungi al calendario (file .ics) ─────────────────────
